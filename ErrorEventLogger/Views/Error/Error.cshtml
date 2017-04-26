@@ -1,0 +1,13 @@
+﻿@model ErrorEventLogger.Models.ErrorModel
+
+
+@{
+    ViewBag.Title = Model.StatusCode;
+}
+
+<h2>@Model.StatusCode</h2>
+
+@Model.Description <br/>
+@Model.Message <br/>
+@Model.DateTime <br/>
+
