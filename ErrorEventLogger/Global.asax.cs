@@ -8,11 +8,18 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using log4net;
+
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 namespace ErrorEventLogger
 {
     public class MvcApplication : System.Web.HttpApplication
     {
+        private static readonly ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase
+                .GetCurrentMethod().DeclaringType);
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -43,7 +50,8 @@ namespace ErrorEventLogger
                 {
                     errorString.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
-                //_log.Error(errorString.ToString());
+                
+                log.Error(errorString.ToString());
 
                 if (Context.Session != null)
                 {

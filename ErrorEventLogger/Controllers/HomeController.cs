@@ -10,7 +10,7 @@ namespace ErrorEventLogger.Controllers
     {
         public ActionResult Index()
         {
-            throw new Exception();
+            //throw new Exception();
             return View();
         }
 
