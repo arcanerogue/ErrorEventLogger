@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using OneTrueError.Client;
+
 //using log4net;
 
 namespace ErrorEventLogger.Controllers
@@ -26,6 +28,19 @@ namespace ErrorEventLogger.Controllers
             };
 
             return View(error);
+        }
+
+        public ActionResult GenerateError()
+        {
+            try
+            {
+                throw new InvalidOperationException("Hello world");
+            }
+            catch (Exception ex)
+            {
+                OneTrue.Report(ex);
+            }
+            return View();
         }
     }
 }

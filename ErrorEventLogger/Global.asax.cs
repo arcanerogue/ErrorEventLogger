@@ -1,6 +1,7 @@
 ﻿using ErrorEventLogger.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,6 +10,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using log4net;
+using OneTrueError.Client;
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
@@ -26,6 +28,9 @@ namespace ErrorEventLogger
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            	//var url = new Uri(ConfigurationManager.AppSettings["OneTrueServerUrl"]);
+	            //OneTrue.Configuration.Credentials(url, ConfigurationManager.AppSettings["OneTrueAppKey"],  ConfigurationManager.AppSettings["OneTrueSecretKey"]);
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -48,7 +53,7 @@ namespace ErrorEventLogger
 
                 if(Context.Session != null)
                 {
-                    errorString.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
+                    //errorString.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
                 }
                 
                 log.Error(errorString.ToString());
