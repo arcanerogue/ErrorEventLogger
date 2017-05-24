@@ -29,14 +29,14 @@ namespace ErrorEventLogger
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            	//var url = new Uri(ConfigurationManager.AppSettings["OneTrueServerUrl"]);
-	            //OneTrue.Configuration.Credentials(url, ConfigurationManager.AppSettings["OneTrueAppKey"],  ConfigurationManager.AppSettings["OneTrueSecretKey"]);
+            	var url = new Uri(ConfigurationManager.AppSettings["OneTrueServerUrl"]);
+	            OneTrue.Configuration.Credentials(url, ConfigurationManager.AppSettings["OneTrueAppKey"],  ConfigurationManager.AppSettings["OneTrueSecretKey"]);
         }
 
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
-
+            OneTrue.Report(ex);
             if(ex != null)
             {
                 StringBuilder errorString = new StringBuilder();
@@ -50,7 +50,7 @@ namespace ErrorEventLogger
                 errorString.Append("\n\nStack Trace: " + ex.StackTrace);
 
                 Server.ClearError();
-
+                /*
                 if(Context.Session != null)
                 {
                     //errorString.Append($"Session: Identity name:[{Thread.CurrentPrincipal.Identity.Name}] IsAuthenticated:{Thread.CurrentPrincipal.Identity.IsAuthenticated}");
@@ -78,7 +78,8 @@ namespace ErrorEventLogger
                     IController controller = new ErrorController();
                     controller.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
                     Response.End();
-                }
+                 
+                }*/
             }
         }
     }
