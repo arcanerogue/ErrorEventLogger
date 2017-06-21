@@ -11,7 +11,7 @@ namespace ErrorEventLogger.Controllers
         public ActionResult Index()
         {
             //throw new Exception();
-            return View();
+           return View();
         }
 
         public ActionResult About()
